@@ -24,6 +24,16 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/view_cate_pro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp" />
+            <View
+                android:layout_margin="5dp"
+                android:background="#BAB6B6"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"/>
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/view_product"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -39,26 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#A39E9E"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_cate_pro" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/view_cate_pro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -81,16 +71,16 @@
                 android:hint="Search product"
                 android:inputType="textPersonName"
                 android:paddingStart="20dp"
-                android:textStyle="italic"
+
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintEnd_toStartOf="@+id/btn_search"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btn_search"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/search_btn_bg"
@@ -105,7 +95,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
+        android:background="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -133,9 +124,10 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:id="@+id/imgViewHome"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_baseline_home_grey" />
 
@@ -159,8 +151,8 @@
                     <ImageView
                         android:id="@+id/imgViewProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_baseline_store" />
 
                     <TextView
                         android:id="@+id/tvDiscover"
@@ -173,7 +165,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/cartBtn"
+                    android:id="@+id/btn_cart_bottom"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -183,9 +175,9 @@
                     <ImageView
                         android:id="@+id/imgViewCart"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bottom_btn5" />
+                        app:srcCompat="@drawable/ic_baseline_shopping_cart" />
 
                     <TextView
                         android:id="@+id/tvCart"
@@ -207,7 +199,7 @@
                     <ImageView
                         android:id="@+id/imgViewSupport"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/bottom_btn3" />
 
@@ -231,9 +223,9 @@
                     <ImageView
                         android:id="@+id/imgViewSetting"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bottom_btn2" />
+                        app:srcCompat="@drawable/ic_baseline_person" />
 
                     <TextView
                         android:id="@+id/tvSetting"

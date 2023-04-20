@@ -97,12 +97,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView16" >
+                    app:layout_constraintTop_toBottomOf="@+id/textView16">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:elevation="3dp"
                     android:id="@+id/constraintLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,12 +128,12 @@
                         android:paddingStart="20dp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_search"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/btn_search"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:background="@drawable/search_btn_bg"
@@ -164,14 +166,14 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/img_avt"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="28dp"
                         android:background="@drawable/avatar_custom_circle"
-                        app:civ_border_color="@color/black"
-                        app:civ_border_width="2dp"
-                        android:src="@drawable/burger_large"
+                        app:civ_border_color="@color/green"
+                        app:civ_border_width="3dp"
+                        android:src="@drawable/avt"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.272"
@@ -183,13 +185,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
-                        android:text="Hi Leonardo"
+                        android:text="Green Fresh"
                         android:textColor="@color/green"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="@+id/img_avt"
                         app:layout_constraintVertical_bias="0.484" />
 
                     <ImageView
@@ -197,16 +199,17 @@
                         android:id="@+id/imageView4"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_avt"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.513"
                         app:layout_constraintStart_toEndOf="@+id/textView5"
-                        app:layout_constraintTop_toTopOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="@+id/img_avt"
                         app:layout_constraintVertical_bias="0.64"
                         app:srcCompat="@drawable/ic_notifications_none" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:elevation="3dp"
                     android:id="@+id/constraintLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -220,12 +223,12 @@
                         android:id="@+id/imageView9"
                         android:layout_width="120dp"
                         android:layout_height="180dp"
-                        android:layout_margin="5dp"
-                        android:scaleType="fitCenter"
+                        android:layout_margin="10dp"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/burger_large" />
+                        app:srcCompat="@drawable/breakfast" />
 
                     <TextView
                         android:id="@+id/textView10"
@@ -245,6 +248,7 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
                         android:text="125 Kcal"
                         android:textColor="#000"
                         android:textSize="18sp"
@@ -333,7 +337,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
+        android:background="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -361,9 +366,10 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:id="@+id/imgViewHome"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_baseline_home_grey" />
 
@@ -387,8 +393,8 @@
                     <ImageView
                         android:id="@+id/imgViewProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_baseline_store" />
 
                     <TextView
                         android:id="@+id/tvDiscover"
@@ -401,7 +407,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/cartBtn"
+                    android:id="@+id/btn_cart_bottom"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -411,9 +417,9 @@
                     <ImageView
                         android:id="@+id/imgViewCart"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bottom_btn5" />
+                        app:srcCompat="@drawable/ic_baseline_shopping_cart" />
 
                     <TextView
                         android:id="@+id/tvCart"
@@ -435,7 +441,7 @@
                     <ImageView
                         android:id="@+id/imgViewSupport"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/bottom_btn3" />
 
@@ -459,9 +465,9 @@
                     <ImageView
                         android:id="@+id/imgViewSetting"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bottom_btn2" />
+                        app:srcCompat="@drawable/ic_baseline_person" />
 
                     <TextView
                         android:id="@+id/tvSetting"

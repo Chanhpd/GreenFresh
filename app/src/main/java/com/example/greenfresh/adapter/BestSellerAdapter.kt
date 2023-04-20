@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.greenfresh.R
 import com.example.greenfresh.activity.DetailProductActivity
+import com.example.greenfresh.api.CartApi
+import com.example.greenfresh.api.LoginApi
 import com.example.greenfresh.model.Product
 
 class BestSellerAdapter(var context: Context, var productList: List<Product>) :
@@ -39,8 +41,13 @@ class BestSellerAdapter(var context: Context, var productList: List<Product>) :
         Glide.with(holder.itemView.context).load(productList.get(position).thumb).into(holder.pic)
         holder.itemView.setOnClickListener {
             val i = Intent(context,DetailProductActivity::class.java)
-            i.putExtra("id",productList.get(position).id)
+            i.putExtra("product",productList.get(position))
             context.startActivity(i)
+        }
+        holder.addBtn.setOnClickListener {
+            var userId = LoginApi().getIdUser(context)
+            CartApi().addToCart(context, userId,productList.get(position).id,1)
+            Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
         }
 // btn
     }

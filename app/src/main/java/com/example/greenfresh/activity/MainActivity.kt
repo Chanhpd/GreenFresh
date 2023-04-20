@@ -17,19 +17,25 @@ import androidx.core.content.ContextCompat
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.example.greenfresh.R
+import com.example.greenfresh.activity.profile.ProfileActivity
 import com.example.greenfresh.adapter.BestSellerAdapter
 import com.example.greenfresh.adapter.CategoryAdapter
 import com.example.greenfresh.adapter.VoucherAdapter
+import com.example.greenfresh.api.LoginApi
 import com.example.greenfresh.model.Category
 import com.example.greenfresh.model.Product
 import com.example.greenfresh.utils.CheckConnection
 import com.example.greenfresh.utils.Server
+import de.hdodenhof.circleimageview.CircleImageView
+import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -43,20 +49,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerViewVoucher: RecyclerView
     lateinit var arrBanner: ArrayList<String>
 
+    lateinit var imgAvt : CircleImageView
 
-
+    var uid : Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initView()
+
+
         actionViewFlipper()
         recyclerViewCategory()
         recyclerViewBestSeller()
         recyclerViewVoucherAction()
+        getDataUser()
         bottomNavagation()
         if (CheckConnection.isConnected(applicationContext)) {
+            LoginApi().saveIdUser(this,6)
+            uid = LoginApi().getIdUser(applicationContext)
+            Toast.makeText(this,uid.toString() , Toast.LENGTH_SHORT).show()
 
 
         } else {
@@ -81,9 +94,10 @@ class MainActivity : AppCompatActivity() {
         img.setImageDrawable(drawable)
         text.setTextColor(ContextCompat.getColor(applicationContext, R.color.green))
 
-        var btnHome: LinearLayout=findViewById(R.id.btn_home_bottom)
-        var btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
-
+        val btnHome: LinearLayout=findViewById(R.id.btn_home_bottom)
+        val btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
+        val btnCart : LinearLayout = findViewById(R.id.btn_cart_bottom)
+        var btnProfile : LinearLayout = findViewById(R.id.btn_profile_bottom)
         btnHome.setOnClickListener {
 
             startActivity(Intent(applicationContext,MainActivity::class.java))
@@ -92,6 +106,12 @@ class MainActivity : AppCompatActivity() {
         btnDiscover.setOnClickListener {
             startActivity(Intent(applicationContext,ProductActivity::class.java))
 
+        }
+        btnCart.setOnClickListener {
+            startActivity(Intent(applicationContext,CartActivity::class.java))
+        }
+        btnProfile.setOnClickListener {
+            startActivity(Intent(applicationContext,ProfileActivity::class.java))
         }
     }
 
@@ -118,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         recyclerViewSeller.adapter = adapterBestSeller
 
         var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
-        var jsonArrayRequest = JsonArrayRequest(Server.linkSeller, Response.Listener { response ->
+        var jsonArrayRequest = JsonArrayRequest(Server.linkSeller, { response ->
             var id = 0
             var name = ""
             var thumb = ""
@@ -144,7 +164,7 @@ class MainActivity : AppCompatActivity() {
                     adapterBestSeller.notifyDataSetChanged()
                 }
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
             Log.d("DDDD", error.toString())
         })
@@ -164,11 +184,10 @@ class MainActivity : AppCompatActivity() {
         recycleViewCate.adapter = adapterCate
 
         var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
-        var jsonArrayRequest = JsonArrayRequest(Server.linkCategory, Response.Listener { response ->
+        var jsonArrayRequest = JsonArrayRequest(Server.linkCategory, { response ->
             var id = 0
             var name = ""
             var thumb = ""
-
             if (response != null) {
 
                 for (i in 0 until response.length()) {
@@ -181,7 +200,7 @@ class MainActivity : AppCompatActivity() {
                     adapterCate.notifyDataSetChanged()
                 }
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
             Log.d("DDDD", error.toString())
         })
@@ -193,20 +212,20 @@ class MainActivity : AppCompatActivity() {
         //get array
         arrBanner = ArrayList()
         var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
-        var jsonArrayRequest = JsonArrayRequest(Server.linkBanner, Response.Listener { response ->
+        var jsonArrayRequest = JsonArrayRequest(Server.linkBanner, { response ->
 
             if (response != null) {
                 for (i in 0 until response.length()) {
                     val link = response.getString(i)
                     arrBanner.add(link)
 
-                    Log.d("DDDD", "actionViewFlipper: " + arrBanner[i])
+
                     adapterCate.notifyDataSetChanged()
                 }
 
                 // add image into ViewFlipper
                 for (i in 0 until arrBanner.size) {
-                    var imgView: ImageView = ImageView(applicationContext)
+                    var imgView = ImageView(applicationContext)
                     Glide.with(applicationContext).load(arrBanner.get(i)).into(imgView)
                     imgView.scaleType = ImageView.ScaleType.FIT_XY
                     viewFlipper.addView(imgView)
@@ -227,7 +246,7 @@ class MainActivity : AppCompatActivity() {
                 viewFlipper.outAnimation = slide_out
 
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
             Log.d("DDDD", error.toString())
         })
@@ -241,5 +260,37 @@ class MainActivity : AppCompatActivity() {
         recycleViewCate = findViewById(R.id.view_cate)
         recyclerViewSeller = findViewById(R.id.view_seller)
         recyclerViewVoucher = findViewById(R.id.view_voucher)
+        imgAvt = findViewById(R.id.img_avt)
+    }
+
+    private fun getDataUser() {
+        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
+        val link: String = Server.linkUser
+        val stringRequest =
+            object : StringRequest(Method.POST, link, { response ->
+                var name = ""
+                var avt = ""
+                if (response != null && response.length > 3) {
+                    Log.d("getCart", "user : $response")
+                    val jsonArray = JSONArray(response)
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+                        name = jsonObject.getString("name")
+                        avt = jsonObject.getString("avt")
+
+                        Glide.with(this).load(avt).into(imgAvt)
+                    }
+                }
+            }, { error ->
+                Log.d("AAA", error.toString())
+            }) {
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["uid"] = uid.toString()
+                    return params
+                }
+            }
+        requestQueue.add(stringRequest)
     }
 }

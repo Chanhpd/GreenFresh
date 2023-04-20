@@ -1,6 +1,7 @@
 package com.example.greenfresh.activity.login
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.greenfresh.R
 import com.example.greenfresh.activity.MainActivity
+import com.example.greenfresh.api.LoginApi
 import com.example.greenfresh.utils.CheckConnection
 import com.example.greenfresh.utils.Server
 import org.json.JSONArray
@@ -65,18 +67,24 @@ class LoginActivity : AppCompatActivity() {
             var stringRequest =
                 object : StringRequest(Request.Method.POST, link,
                     Response.Listener {
-                    if (it == "Success") {
-                        Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
-                        val i = Intent(this, MainActivity::class.java)
-                        i.putExtra("email",email)
-                        startActivity(i)
-                    }else{
-                        Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-                    }
-                }, Response.ErrorListener {
-                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-                    Log.d("AAA", it.toString())
-                }) {
+                        if (it.length == 1) {
+                            Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
+                            LoginApi().saveIdUser(this,it.toInt())// save id user
+
+                            val i = Intent(this, MainActivity::class.java)
+                            i.putExtra("email", email)
+                            startActivity(i)
+                        } else if (it == "Fail") {
+                            Toast.makeText(this, "Wrong email or password!", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Log.d("Login", "logIn: $it")
+                            Toast.makeText(this, "Wrong email or password!", Toast.LENGTH_SHORT).show()
+                        }
+                    }, Response.ErrorListener {
+                        Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                        Log.d("AAA", it.toString())
+                    }) {
                     @Throws(AuthFailureError::class)
                     override fun getParams(): Map<String, String> {
                         val params = HashMap<String, String>()
@@ -89,4 +97,6 @@ class LoginActivity : AppCompatActivity() {
             requestQueue.add(stringRequest)
         }
     }
+
+
 }
