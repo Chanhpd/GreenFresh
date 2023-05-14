@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.example.greenfresh.R
+import com.example.greenfresh.activity.fixme.StartFixMeActivity
 import com.example.greenfresh.activity.profile.ProfileActivity
 import com.example.greenfresh.adapter.BestSellerAdapter
 import com.example.greenfresh.adapter.CategoryAdapter
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         val btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         val btnCart : LinearLayout = findViewById(R.id.btn_cart_bottom)
         var btnProfile : LinearLayout = findViewById(R.id.btn_profile_bottom)
+        var btnFixMe : LinearLayout = findViewById(R.id.supportBtn)
 //        btnHome.setOnClickListener {
 //
 //            startActivity(Intent(applicationContext,MainActivity::class.java))
@@ -106,6 +108,9 @@ class MainActivity : AppCompatActivity() {
         }
         btnProfile.setOnClickListener {
             startActivity(Intent(applicationContext,ProfileActivity::class.java))
+        }
+        btnFixMe.setOnClickListener {
+            startActivity(Intent(applicationContext, StartFixMeActivity::class.java))
         }
     }
 
