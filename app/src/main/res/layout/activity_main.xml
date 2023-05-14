@@ -463,7 +463,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imgViewSetting"
+                        android:id="@+id/imgView_person"
                         android:layout_width="match_parent"
                         android:layout_height="28dp"
                         android:layout_weight="1"

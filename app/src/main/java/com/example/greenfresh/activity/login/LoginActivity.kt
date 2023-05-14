@@ -33,6 +33,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         initView()
+        edtEmail.setText("vang@gmail.com")
+        edtPass.setText("1")
         if (CheckConnection.isConnected(applicationContext)) {
             btn_login.setOnClickListener {
                 logIn()

@@ -2,8 +2,10 @@ package com.example.greenfresh.utils
 
 class Server {
     companion object {
+
+
         // IP address
-        val localhost = "192.168.1.10"
+        val localhost = "192.168.1.5"
         //
 
         val linkLogin = "http://$localhost/greenfresh/login.php"
@@ -23,5 +25,8 @@ class Server {
         val linkUser = "http://$localhost/greenfresh/getUser.php"
 
         val linkChangePass = "http://$localhost/greenfresh/changePass.php"
+        val linkOrder = "http://$localhost/greenfresh/order.php"
+        val linkOrderDetail = "http://$localhost/greenfresh/getOrder.php"
+        val linkNotifi = "http://$localhost/greenfresh/notification.php"
     }
 }

@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -33,6 +34,7 @@ import com.example.greenfresh.R
 import com.example.greenfresh.activity.CartActivity
 import com.example.greenfresh.activity.MainActivity
 import com.example.greenfresh.activity.ProductActivity
+import com.example.greenfresh.activity.login.LoginActivity
 import com.example.greenfresh.api.LoginApi
 import com.example.greenfresh.utils.Server
 import com.github.ybq.android.spinkit.SpinKitView
@@ -49,7 +51,8 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var btn_help_center  : LinearLayout
     lateinit var imagePath : Uri
     lateinit var tvEmail : TextView
-
+    lateinit var btn_notification : LinearLayout
+    lateinit var btn_logout: LinearLayout
     // upload
     lateinit var img_upload : ImageView
     lateinit var tv_progress : TextView
@@ -68,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
         initConfig()
         uid = LoginApi().getIdUser(this)
         getData()
-        Toast.makeText(this, uid.toString(), Toast.LENGTH_SHORT).show()
+
 
         btnEdit.setOnClickListener {
             startActivity(Intent(this, EditProfileActivity::class.java))
@@ -82,10 +85,44 @@ class ProfileActivity : AppCompatActivity() {
         btn_help_center.setOnClickListener {
             startActivity(Intent(this, ContactActivity::class.java))
         }
-
+        btn_notification.setOnClickListener {
+            startActivity(Intent(this, NotificationActivity::class.java))
+        }
+        btn_logout.setOnClickListener {
+            showDialog()
+        }
         bottomNavagation()
     }
 
+    fun showDialog(){
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_logout)
+
+        // handle in here
+        val btn_canel: TextView = dialog.findViewById(R.id.btn_cancel_dialog)
+        val btn_yes: TextView = dialog.findViewById(R.id.btn_yes_dialog)
+
+        btn_canel.setOnClickListener {
+            dialog.dismiss()
+        }
+        btn_yes.setOnClickListener {
+            logout()
+        }
+
+        dialog.show()
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
+    }
+    private fun logout(){
+        LoginApi().clearIdUser(this)
+        startActivity(Intent(applicationContext,LoginActivity::class.java))
+    }
     private fun dialogUploadImage() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -225,6 +262,8 @@ class ProfileActivity : AppCompatActivity() {
         btn_upload = findViewById(R.id.img_upload_avt)
         tvEmail = findViewById(R.id.tv_email_profile)
         btn_help_center = findViewById(R.id.btn_help_center)
+        btn_notification = findViewById(R.id.btn_notification)
+        btn_logout = findViewById(R.id.btn_logout)
     }
 
     private fun getData() {
@@ -272,15 +311,15 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun bottomNavagation() {
 
-        val drawable = resources.getDrawable(R.drawable.ic_baseline_home_grey, null)
+        val drawable = resources.getDrawable(R.drawable.ic_baseline_person, null)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             drawable.setColorFilter(resources.getColor(R.color.green, null), PorterDuff.Mode.SRC_IN)
         }
 
-        val img: ImageView = findViewById(R.id.imgViewHome)
-        val text: TextView = findViewById(R.id.tvHome)
+        val img: ImageView = findViewById(R.id.imgView_person)
+        val text: TextView = findViewById(R.id.tvSetting)
         img.setImageDrawable(drawable)
-        text.setTextColor(ContextCompat.getColor(applicationContext, R.color.green))
+        text.setTextColor(ContextCompat.getColor(this, R.color.green))
 
         val btnHome: LinearLayout = findViewById(R.id.btn_home_bottom)
         val btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
@@ -298,8 +337,8 @@ class ProfileActivity : AppCompatActivity() {
         btnCart.setOnClickListener {
             startActivity(Intent(applicationContext, CartActivity::class.java))
         }
-        btnProfile.setOnClickListener {
-            startActivity(Intent(applicationContext, ProfileActivity::class.java))
-        }
+//        btnProfile.setOnClickListener {
+//            startActivity(Intent(applicationContext, ProfileActivity::class.java))
+//        }
     }
 }

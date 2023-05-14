@@ -56,7 +56,7 @@ class DetailProductActivity : AppCompatActivity() {
         title.text = product.name
         tvCalo.text =product.calories.toString()+" Kcal"
         tvPrice.text = "$"+product.price.toString()
-        tvPrice_discount.text = "$"+(product.price+product.price*product.sale/100.0).toString()
+        tvPrice_discount.text = "$"+(product.price-product.price*product.sale/100.0).toString()
         if(product.sale ==0){
             tvPrice_discount.visibility = View.INVISIBLE
             tvPrice.setTextColor(resources.getColor(R.color.black))

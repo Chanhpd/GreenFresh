@@ -45,7 +45,6 @@ class CartFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         refresh = view.findViewById(R.id.refreshLayout)
         btn_checkout = view.findViewById(R.id.btn_save_pass)
 
-
         cartList = ArrayList()
         uid = LoginApi().getIdUser(requireContext())
         refresh.setOnRefreshListener(this)
@@ -58,8 +57,6 @@ class CartFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         btn_checkout.setOnClickListener {
             startActivity(Intent(requireContext(),CheckoutActivity::class.java))
         }
-
-
         return view
     }
 

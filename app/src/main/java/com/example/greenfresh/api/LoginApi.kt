@@ -23,4 +23,14 @@ class LoginApi {
         var uid = sharedPreferences.getInt("uid",0)
         return uid
     }
+    fun clearIdUser(context: Context) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(
+            "user",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.remove("uid")
+        editor.apply()
+    }
+
 }

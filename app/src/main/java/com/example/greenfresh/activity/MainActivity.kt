@@ -7,19 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import android.widget.ViewFlipper
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -67,9 +61,9 @@ class MainActivity : AppCompatActivity() {
         getDataUser()
         bottomNavagation()
         if (CheckConnection.isConnected(applicationContext)) {
-            LoginApi().saveIdUser(this,6)
+
             uid = LoginApi().getIdUser(applicationContext)
-            Toast.makeText(this,uid.toString() , Toast.LENGTH_SHORT).show()
+
 
 
         } else {
@@ -98,11 +92,11 @@ class MainActivity : AppCompatActivity() {
         val btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         val btnCart : LinearLayout = findViewById(R.id.btn_cart_bottom)
         var btnProfile : LinearLayout = findViewById(R.id.btn_profile_bottom)
-        btnHome.setOnClickListener {
-
-            startActivity(Intent(applicationContext,MainActivity::class.java))
-
-        }
+//        btnHome.setOnClickListener {
+//
+//            startActivity(Intent(applicationContext,MainActivity::class.java))
+//
+//        }
         btnDiscover.setOnClickListener {
             startActivity(Intent(applicationContext,ProductActivity::class.java))
 
@@ -180,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         recycleViewCate.layoutManager = linearLayoutManager
 
         var cateList: ArrayList<Category> = ArrayList()
-        adapterCate = CategoryAdapter(cateList)
+        adapterCate = CategoryAdapter(this,cateList)
         recycleViewCate.adapter = adapterCate
 
         var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)

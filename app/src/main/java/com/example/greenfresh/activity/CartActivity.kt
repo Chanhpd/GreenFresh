@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.greenfresh.R
+import com.example.greenfresh.activity.profile.ProfileActivity
 import com.example.greenfresh.fragment.CartFragment
 import com.example.greenfresh.fragment.EmptyCartFragment
 import com.example.greenfresh.api.CartApi
@@ -56,7 +57,7 @@ class CartActivity : AppCompatActivity() {
         var btnHome: LinearLayout = findViewById(R.id.btn_home_bottom)
         var btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         var btnCart: LinearLayout = findViewById(R.id.btn_cart_bottom)
-
+        var btnProfile: LinearLayout = findViewById(R.id.btn_profile_bottom)
         btnHome.setOnClickListener {
 
             startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -66,8 +67,11 @@ class CartActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, ProductActivity::class.java))
 
         }
-        btnCart.setOnClickListener {
-            startActivity(Intent(applicationContext, CartActivity::class.java))
+//        btnCart.setOnClickListener {
+//            startActivity(Intent(applicationContext, CartActivity::class.java))
+//        }
+        btnProfile.setOnClickListener {
+            startActivity(Intent(applicationContext, ProfileActivity::class.java))
         }
     }
 

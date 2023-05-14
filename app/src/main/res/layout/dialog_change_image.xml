@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/bg_dialog"
+    android:layout_margin="10dp"
     >
 
 
@@ -12,11 +13,12 @@
         android:id="@+id/img_upload"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="56dp"
 
         android:scaleType="fitXY"
         android:src="@drawable/upload_img"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +41,7 @@
         android:layout_width="220dp"
         android:layout_height="60dp"
         android:layout_marginTop="110dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/btn_bg_yes"
         android:gravity="center"
         android:text="Upload"
@@ -50,13 +52,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_upload"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:text="Click image to choose"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -72,8 +74,8 @@
         android:text="Let's upload avatar"
         android:textColor="#f10"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/spinKitView_upload"
-        app:layout_constraintStart_toStartOf="@+id/spinKitView_upload"
+        app:layout_constraintEnd_toEndOf="@+id/img_upload"
+        app:layout_constraintStart_toStartOf="@+id/img_upload"
         app:layout_constraintTop_toBottomOf="@+id/img_upload" />
 
     <ImageButton

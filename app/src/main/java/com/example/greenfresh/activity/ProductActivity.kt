@@ -23,6 +23,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.greenfresh.R
+import com.example.greenfresh.activity.profile.ProfileActivity
 import com.example.greenfresh.adapter.BestSellerAdapter
 import com.example.greenfresh.adapter.CategoryProductAdapter
 import com.example.greenfresh.adapter.PhotoAdapter
@@ -223,16 +224,19 @@ class ProductActivity : AppCompatActivity() {
         var btnHome: LinearLayout = findViewById(R.id.btn_home_bottom)
         var btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         var btnCart : LinearLayout = findViewById(R.id.btn_cart_bottom)
-
+        var btnProfile : LinearLayout = findViewById(R.id.btn_profile_bottom)
         btnHome.setOnClickListener {
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }
-        btnDiscover.setOnClickListener {
-            startActivity(Intent(applicationContext, ProductActivity::class.java))
-
-        }
+//        btnDiscover.setOnClickListener {
+//            startActivity(Intent(applicationContext, ProductActivity::class.java))
+//
+//        }
         btnCart.setOnClickListener {
             startActivity(Intent(applicationContext,CartActivity::class.java))
+        }
+        btnProfile.setOnClickListener {
+            startActivity(Intent(applicationContext, ProfileActivity::class.java))
         }
     }
 

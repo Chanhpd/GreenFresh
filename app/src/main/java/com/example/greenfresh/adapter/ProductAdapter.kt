@@ -56,6 +56,7 @@ class ProductAdapter(var context: Context, var productList: List<Product>) :
             CartApi().addToCart(context, userId,productList.get(position).id,1)
             Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun getItemCount(): Int {
