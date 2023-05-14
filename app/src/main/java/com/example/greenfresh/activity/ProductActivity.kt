@@ -1,13 +1,19 @@
 package com.example.greenfresh.activity
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -48,6 +54,12 @@ class ProductActivity : AppCompatActivity() {
     lateinit var adapterCate: CategoryProductAdapter
     lateinit var btnSearch: ImageView
     lateinit var editSearch: EditText
+    lateinit var pic_filter: ImageView
+
+
+    companion object {
+        var sort = ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,16 +68,78 @@ class ProductActivity : AppCompatActivity() {
         initView()
 
         getProduct()
+
         bottomNavagation()
         getCategoryProduct()
 
         btnSearch.setOnClickListener {
             var search = editSearch.text.toString().trim()
-            getProductSearch(search,"1")
+            getProductSearch(search, "1")
         }
-
+        pic_filter.setOnClickListener {
+            showDialogFilter()
+        }
     }
 
+    private fun showDialogFilter() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_filter_product)
+
+        // handle in here
+        val btn_canel: TextView = dialog.findViewById(R.id.btn_cancel_dialog)
+
+        val tv_sort_name_acs: TextView = dialog.findViewById(R.id.tv_sort_name_acs)
+        val tv_sort_name_des: TextView = dialog.findViewById(R.id.tv_sort_name_des)
+        val tv_sort_sale: TextView = dialog.findViewById(R.id.tv_sort_sale)
+        val tv_price_high: TextView = dialog.findViewById(R.id.tv_price_high)
+        val tv_price_low: TextView = dialog.findViewById(R.id.tv_price_low)
+
+        tv_sort_name_acs.setOnClickListener {
+            sort = "1"
+            getProduct()
+            Toast.makeText(applicationContext, "Sort by name from A-Z", Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+        tv_sort_name_des.setOnClickListener {
+            sort = "2"
+            getProduct()
+            Toast.makeText(applicationContext, "Sort by name from Z-A", Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+        tv_sort_sale.setOnClickListener {
+            sort = "3"
+            getProduct()
+            Toast.makeText(applicationContext, "Sort by Best Seller", Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+        tv_price_high.setOnClickListener {
+            sort = "4"
+            getProduct()
+            Toast.makeText(applicationContext, "Sort by price highest", Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+        tv_price_low.setOnClickListener {
+            sort = "5"
+            getProduct()
+            Toast.makeText(applicationContext, "Sort by price lowest", Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        btn_canel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
+    }
 
 
     private fun getCategoryProduct() {
@@ -96,41 +170,39 @@ class ProductActivity : AppCompatActivity() {
 
 
     private fun getProduct() {
-        var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
-        var jsonArrayRequest = JsonArrayRequest(Server.linkProduct, { response ->
-            var id = 0
-            var name = ""
-            var thumb = ""
-            var description = ""
-            var price = 0.0
-            var calories = 0
-            var sale = 0
-            var unit = ""
-            if (response != null) {
+//        val requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
+//        val jsonArrayRequest = JsonArrayRequest(Server.linkProduct, { response ->
+//            var id = 0
+//            var name = ""
+//            var thumb = ""
+//            var description = ""
+//            var price = 0.0
+//            var calories = 0
+//            var sale = 0
+//            var unit = ""
+//            if (response != null) {
+//                Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT).show()
+//                for (i in 0 until response.length()) {
+//                    var jsonObject: JSONObject? = response.getJSONObject(i)
+//                    id = jsonObject!!.getInt("id")
+//                    name = jsonObject!!.getString("name")
+//                    thumb = jsonObject!!.getString("thumb")
+//                    description = jsonObject!!.getString("description")
+//                    price = jsonObject!!.getDouble("price")
+//                    calories = jsonObject!!.getInt("calories")
+//                    sale = jsonObject!!.getInt("sale")
+//                    unit = jsonObject!!.getString("unit")
+//
+//                    arrPro.add(Product(id, name, thumb, description, price, calories, sale, unit))
+//                    adapterProduct.notifyDataSetChanged()
+//                }
+//            }
+//        }, { error ->
+//            Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
+//            Log.d("DDDD", error.toString())
+//        })
+//        requestQueue.add(jsonArrayRequest)
 
-                for (i in 0 until response.length()) {
-                    var jsonObject: JSONObject? = response.getJSONObject(i)
-                    id = jsonObject!!.getInt("id")
-                    name = jsonObject!!.getString("name")
-                    thumb = jsonObject!!.getString("thumb")
-                    description = jsonObject!!.getString("description")
-                    price = jsonObject!!.getDouble("price")
-                    calories = jsonObject!!.getInt("calories")
-                    sale = jsonObject!!.getInt("sale")
-                    unit = jsonObject!!.getString("unit")
-
-                    arrPro.add(Product(id, name, thumb, description, price, calories, sale, unit))
-                    adapterProduct.notifyDataSetChanged()
-                }
-            }
-        }, { error ->
-            Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
-            Log.d("DDDD", error.toString())
-        })
-        requestQueue.add(jsonArrayRequest)
-    }
-
-    private fun getProductSearch(search: String, idCate : String) {
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val link: String = Server.linkProduct
         arrPro.clear()
@@ -159,12 +231,88 @@ class ProductActivity : AppCompatActivity() {
                         sale = jsonObject!!.getInt("sale")
                         unit = jsonObject!!.getString("unit")
 
-                        arrPro.add(Product(id, name, thumb, description, price, calories, sale, unit))
+                        arrPro.add(
+                            Product(
+                                id,
+                                name,
+                                thumb,
+                                description,
+                                price,
+                                calories,
+                                sale,
+                                unit
+                            )
+                        )
 
                         adapterProduct.notifyDataSetChanged()
 
                     }
-                } else if(response.length==2){
+                } else if (response.length == 2) {
+                    arrPro.clear()
+                    adapterProduct.notifyDataSetChanged()
+                    Toast.makeText(this, "No product found !", Toast.LENGTH_SHORT).show()
+                }
+            }, { error ->
+                Log.d("AAA", error.toString())
+            }) {
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    if(sort != ""){
+                        params["sort"] = sort
+                    }
+                    return params
+                }
+            }
+        requestQueue.add(stringRequest)
+    }
+
+    private fun getProductSearch(search: String, idCate: String) {
+        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
+        val link: String = Server.linkProduct
+        arrPro.clear()
+        val stringRequest =
+            object : StringRequest(Method.POST, link, { response ->
+                var id = 0
+                var name = ""
+                var thumb = ""
+                var description = ""
+                var price = 0.0
+                var calories = 0
+                var sale = 0
+                var unit = ""
+
+                if (response != null && response.length != 2) {
+
+                    val jsonArray: JSONArray = JSONArray(response)
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+                        id = jsonObject!!.getInt("id")
+                        name = jsonObject!!.getString("name")
+                        thumb = jsonObject!!.getString("thumb")
+                        description = jsonObject!!.getString("description")
+                        price = jsonObject!!.getDouble("price")
+                        calories = jsonObject!!.getInt("calories")
+                        sale = jsonObject!!.getInt("sale")
+                        unit = jsonObject!!.getString("unit")
+
+                        arrPro.add(
+                            Product(
+                                id,
+                                name,
+                                thumb,
+                                description,
+                                price,
+                                calories,
+                                sale,
+                                unit
+                            )
+                        )
+
+                        adapterProduct.notifyDataSetChanged()
+
+                    }
+                } else if (response.length == 2) {
                     arrPro.clear()
                     adapterProduct.notifyDataSetChanged()
                     Toast.makeText(this, "No product found !", Toast.LENGTH_SHORT).show()
@@ -177,6 +325,10 @@ class ProductActivity : AppCompatActivity() {
                     val params = HashMap<String, String>()
                     params["search"] = search
                     params["id_cate"] = idCate
+                    if(sort != ""){
+                        params["sort"] = sort
+
+                    }
                     Log.d("TAG", "getParams: $search : $idCate")
                     return params
                 }
@@ -196,8 +348,8 @@ class ProductActivity : AppCompatActivity() {
 
         recyclerViewCate = findViewById(R.id.view_cate_pro)
         arrCate = ArrayList()
-        adapterCate = CategoryProductAdapter(arrCate){
-            getProductSearch(editSearch.text.toString().trim(),it.id.toString())
+        adapterCate = CategoryProductAdapter(arrCate) {
+            getProductSearch(editSearch.text.toString().trim(), it.id.toString())
         }
         recyclerViewCate.layoutManager =
             LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
@@ -206,6 +358,7 @@ class ProductActivity : AppCompatActivity() {
 
         btnSearch = findViewById(R.id.btn_search)
         editSearch = findViewById(R.id.edtSearch)
+        pic_filter = findViewById(R.id.pic_filter)
     }
 
     private fun bottomNavagation() {
@@ -223,8 +376,8 @@ class ProductActivity : AppCompatActivity() {
 
         var btnHome: LinearLayout = findViewById(R.id.btn_home_bottom)
         var btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
-        var btnCart : LinearLayout = findViewById(R.id.btn_cart_bottom)
-        var btnProfile : LinearLayout = findViewById(R.id.btn_profile_bottom)
+        var btnCart: LinearLayout = findViewById(R.id.btn_cart_bottom)
+        var btnProfile: LinearLayout = findViewById(R.id.btn_profile_bottom)
         btnHome.setOnClickListener {
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }
@@ -233,7 +386,7 @@ class ProductActivity : AppCompatActivity() {
 //
 //        }
         btnCart.setOnClickListener {
-            startActivity(Intent(applicationContext,CartActivity::class.java))
+            startActivity(Intent(applicationContext, CartActivity::class.java))
         }
         btnProfile.setOnClickListener {
             startActivity(Intent(applicationContext, ProfileActivity::class.java))

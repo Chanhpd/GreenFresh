@@ -65,7 +65,7 @@
                 android:id="@+id/edtSearch"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
-                android:background="@drawable/search_edt_bg"
+                android:background="@drawable/search_edt_bg_2"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Search product"
@@ -81,9 +81,9 @@
 
             <ImageButton
                 android:id="@+id/btn_search"
-                android:layout_width="55dp"
+                android:layout_width="45dp"
                 android:layout_height="55dp"
-                android:background="@drawable/search_btn_bg"
+                android:background="@drawable/search_btn_bg_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -91,13 +91,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/imageView22"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/pic_filter"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="7dp"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
             app:layout_constraintVertical_bias="0.5"
             app:srcCompat="@drawable/filter_ic" />
