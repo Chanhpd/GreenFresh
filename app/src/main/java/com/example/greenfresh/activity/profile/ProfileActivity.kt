@@ -34,6 +34,7 @@ import com.example.greenfresh.R
 import com.example.greenfresh.activity.CartActivity
 import com.example.greenfresh.activity.MainActivity
 import com.example.greenfresh.activity.ProductActivity
+import com.example.greenfresh.activity.fixme.StartFixMeActivity
 import com.example.greenfresh.activity.login.LoginActivity
 import com.example.greenfresh.api.LoginApi
 import com.example.greenfresh.utils.Server
@@ -325,6 +326,11 @@ class ProfileActivity : AppCompatActivity() {
         val btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         val btnCart: LinearLayout = findViewById(R.id.btn_cart_bottom)
         var btnProfile: LinearLayout = findViewById(R.id.btn_profile_bottom)
+
+        var btnFixMe : LinearLayout = findViewById(R.id.supportBtn)
+        btnFixMe.setOnClickListener {
+            startActivity(Intent(applicationContext, StartFixMeActivity::class.java))
+        }
         btnHome.setOnClickListener {
 
             startActivity(Intent(applicationContext, MainActivity::class.java))

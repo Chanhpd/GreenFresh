@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
             var stringRequest =
                 object : StringRequest(Request.Method.POST, link,
                     Response.Listener {
-                        if (it.length == 1) {
+                        if (it.length < 5) {
                             Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
                             LoginApi().saveIdUser(this,it.toInt())// save id user
 

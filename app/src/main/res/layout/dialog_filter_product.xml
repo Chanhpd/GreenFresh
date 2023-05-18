@@ -138,9 +138,9 @@
         android:text="High"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView59"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_calculate_fit"
         app:layout_constraintStart_toStartOf="@+id/tv_sort_sale"
-        app:layout_constraintTop_toTopOf="@+id/textView59" />
+        app:layout_constraintTop_toTopOf="@+id/btn_calculate_fit" />
 
     <TextView
         android:id="@+id/tv_price_low"
@@ -152,9 +152,9 @@
         android:text="Low"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView59"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_calculate_fit"
         app:layout_constraintStart_toEndOf="@+id/tv_price_high"
-        app:layout_constraintTop_toTopOf="@+id/textView59" />
+        app:layout_constraintTop_toTopOf="@+id/btn_calculate_fit" />
 
     <TextView
         android:id="@+id/tv_sort_sale"
@@ -171,7 +171,7 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        android:id="@+id/textView59"
+        android:id="@+id/btn_calculate_fit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"

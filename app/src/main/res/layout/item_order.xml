@@ -49,22 +49,6 @@
         app:layout_constraintStart_toStartOf="@+id/tv_itemCart_title" />
 
     <TextView
-        android:id="@+id/textView32"
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_bg_yes"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Prepare"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
-
-    <TextView
         android:id="@+id/tv_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

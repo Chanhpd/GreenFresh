@@ -41,6 +41,7 @@ class ProductAdapter(var context: Context, var productList: List<Product>) :
         holder.price.text = "$" + productList.get(position).price.toString()
         holder.tvSale.text =   productList.get(position).sale.toString()+"%"
         holder.unit.text = "Unit: "+productList.get(position).unit
+        holder.star.text = productList.get(position).star.toString()
         Glide.with(holder.itemView.context).load(productList.get(position).thumb).into(holder.pic)
         holder.itemView.setOnClickListener {
             val i = Intent(context, DetailProductActivity::class.java)

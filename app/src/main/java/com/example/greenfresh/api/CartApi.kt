@@ -29,7 +29,7 @@ class CartApi {
                     if (it == "Success") {
                         Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                         Log.d("BBB", it.toString())
                     }
                 }, Response.ErrorListener {

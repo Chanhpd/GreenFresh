@@ -23,7 +23,7 @@ class NotificationAdapter(var context: Context, private var list: ArrayList<Noti
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvOrder.text = "Order successful #id: "+list.get(position).id
         holder.tv_noti_date.text = list.get(position).date
-
+        holder.tv_status_nofi.text = list.get(position).status
         holder.btn_noti_view_detail.setOnClickListener {
             val i  = Intent(context, OrderActivity::class.java)
             i.putExtra("order",list.get(position))
@@ -40,6 +40,6 @@ class NotificationAdapter(var context: Context, private var list: ArrayList<Noti
         val tvOrder: TextView = itemView.findViewById(R.id.tv_notifi_id)
         val tv_noti_date: TextView = itemView.findViewById(R.id.tv_noti_date)
         val btn_noti_view_detail: TextView = itemView.findViewById(R.id.btn_noti_view_detail)
-
+        val tv_status_nofi : TextView = itemView.findViewById(R.id.tv_status_nofi)
     }
 }

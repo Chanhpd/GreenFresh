@@ -11,9 +11,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.bumptech.glide.Glide
 import com.example.greenfresh.R
-import com.example.greenfresh.adapter.CheckoutAdapter
 import com.example.greenfresh.adapter.OrderAdapter
 import com.example.greenfresh.api.LoginApi
 import com.example.greenfresh.model.Cart
@@ -52,6 +50,7 @@ class OrderActivity : AppCompatActivity() {
         order = intent.getSerializableExtra("order") as Notification
         tv_address_order.text = order.address
         tv_time_order.text = "Order at: "+order.date
+        tv_status_order.text = order.status
         getOrder(order)
 
     }

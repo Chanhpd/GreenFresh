@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.greenfresh.R
+import com.example.greenfresh.activity.fixme.StartFixMeActivity
 import com.example.greenfresh.activity.profile.ProfileActivity
 import com.example.greenfresh.fragment.CartFragment
 import com.example.greenfresh.fragment.EmptyCartFragment
@@ -58,6 +59,11 @@ class CartActivity : AppCompatActivity() {
         var btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         var btnCart: LinearLayout = findViewById(R.id.btn_cart_bottom)
         var btnProfile: LinearLayout = findViewById(R.id.btn_profile_bottom)
+
+        var btnFixMe : LinearLayout = findViewById(R.id.supportBtn)
+        btnFixMe.setOnClickListener {
+            startActivity(Intent(applicationContext, StartFixMeActivity::class.java))
+        }
         btnHome.setOnClickListener {
 
             startActivity(Intent(applicationContext, MainActivity::class.java))

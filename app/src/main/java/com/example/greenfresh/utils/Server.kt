@@ -3,7 +3,7 @@ package com.example.greenfresh.utils
 class Server {
     companion object {
         // IP address
-        val localhost = "192.168.1.4"
+        val localhost = "192.168.1.5"
         //
 
         val linkLogin = "http://$localhost/greenfresh/login.php"

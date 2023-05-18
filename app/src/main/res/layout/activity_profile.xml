@@ -118,49 +118,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/bg_profile_white"
-                    android:elevation="3dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_phone">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/address_ic" />
-
-                    <TextView
-                        android:id="@+id/textView46"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_weight="1"
-
-                        android:gravity="center_vertical"
-                        android:text="Address"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/right" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/btn_notification"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -172,7 +129,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_address">
+                    app:layout_constraintTop_toBottomOf="@+id/btn_phone">
 
                     <ImageView
                         android:layout_width="30dp"

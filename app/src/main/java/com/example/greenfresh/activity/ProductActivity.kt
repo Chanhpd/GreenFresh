@@ -6,42 +6,32 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.greenfresh.R
+import com.example.greenfresh.activity.fixme.StartFixMeActivity
 import com.example.greenfresh.activity.profile.ProfileActivity
-import com.example.greenfresh.adapter.BestSellerAdapter
 import com.example.greenfresh.adapter.CategoryProductAdapter
-import com.example.greenfresh.adapter.PhotoAdapter
 import com.example.greenfresh.adapter.ProductAdapter
-import com.example.greenfresh.model.Cart
 import com.example.greenfresh.model.Category
 import com.example.greenfresh.model.Product
 import com.example.greenfresh.utils.Server
-import me.relex.circleindicator.CircleIndicator3
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlin.math.abs
 
 class ProductActivity : AppCompatActivity() {
 
@@ -59,6 +49,7 @@ class ProductActivity : AppCompatActivity() {
 
     companion object {
         var sort = ""
+        var search = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +64,7 @@ class ProductActivity : AppCompatActivity() {
         getCategoryProduct()
 
         btnSearch.setOnClickListener {
-            var search = editSearch.text.toString().trim()
+            search = editSearch.text.toString().trim()
             getProductSearch(search, "1")
         }
         pic_filter.setOnClickListener {
@@ -170,39 +161,6 @@ class ProductActivity : AppCompatActivity() {
 
 
     private fun getProduct() {
-//        val requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
-//        val jsonArrayRequest = JsonArrayRequest(Server.linkProduct, { response ->
-//            var id = 0
-//            var name = ""
-//            var thumb = ""
-//            var description = ""
-//            var price = 0.0
-//            var calories = 0
-//            var sale = 0
-//            var unit = ""
-//            if (response != null) {
-//                Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT).show()
-//                for (i in 0 until response.length()) {
-//                    var jsonObject: JSONObject? = response.getJSONObject(i)
-//                    id = jsonObject!!.getInt("id")
-//                    name = jsonObject!!.getString("name")
-//                    thumb = jsonObject!!.getString("thumb")
-//                    description = jsonObject!!.getString("description")
-//                    price = jsonObject!!.getDouble("price")
-//                    calories = jsonObject!!.getInt("calories")
-//                    sale = jsonObject!!.getInt("sale")
-//                    unit = jsonObject!!.getString("unit")
-//
-//                    arrPro.add(Product(id, name, thumb, description, price, calories, sale, unit))
-//                    adapterProduct.notifyDataSetChanged()
-//                }
-//            }
-//        }, { error ->
-//            Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
-//            Log.d("DDDD", error.toString())
-//        })
-//        requestQueue.add(jsonArrayRequest)
-
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val link: String = Server.linkProduct
         arrPro.clear()
@@ -216,7 +174,7 @@ class ProductActivity : AppCompatActivity() {
                 var calories = 0
                 var sale = 0
                 var unit = ""
-
+                var star = 0.0
                 if (response != null && response.length != 2) {
 
                     val jsonArray: JSONArray = JSONArray(response)
@@ -230,7 +188,7 @@ class ProductActivity : AppCompatActivity() {
                         calories = jsonObject!!.getInt("calories")
                         sale = jsonObject!!.getInt("sale")
                         unit = jsonObject!!.getString("unit")
-
+                        star = jsonObject!!.getDouble("star")
                         arrPro.add(
                             Product(
                                 id,
@@ -240,7 +198,8 @@ class ProductActivity : AppCompatActivity() {
                                 price,
                                 calories,
                                 sale,
-                                unit
+                                unit,
+                                star
                             )
                         )
 
@@ -258,7 +217,7 @@ class ProductActivity : AppCompatActivity() {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
                     val params = HashMap<String, String>()
-                    if(sort != ""){
+                    if (sort != "") {
                         params["sort"] = sort
                     }
                     return params
@@ -281,7 +240,7 @@ class ProductActivity : AppCompatActivity() {
                 var calories = 0
                 var sale = 0
                 var unit = ""
-
+                var star = 0.0
                 if (response != null && response.length != 2) {
 
                     val jsonArray: JSONArray = JSONArray(response)
@@ -295,7 +254,7 @@ class ProductActivity : AppCompatActivity() {
                         calories = jsonObject!!.getInt("calories")
                         sale = jsonObject!!.getInt("sale")
                         unit = jsonObject!!.getString("unit")
-
+                        star = jsonObject!!.getDouble("star")
                         arrPro.add(
                             Product(
                                 id,
@@ -305,7 +264,8 @@ class ProductActivity : AppCompatActivity() {
                                 price,
                                 calories,
                                 sale,
-                                unit
+                                unit,
+                                star
                             )
                         )
 
@@ -325,7 +285,7 @@ class ProductActivity : AppCompatActivity() {
                     val params = HashMap<String, String>()
                     params["search"] = search
                     params["id_cate"] = idCate
-                    if(sort != ""){
+                    if (sort != "") {
                         params["sort"] = sort
 
                     }
@@ -378,6 +338,10 @@ class ProductActivity : AppCompatActivity() {
         var btnDiscover: LinearLayout = findViewById(R.id.btn_discover_bottom)
         var btnCart: LinearLayout = findViewById(R.id.btn_cart_bottom)
         var btnProfile: LinearLayout = findViewById(R.id.btn_profile_bottom)
+        var btnFixMe : LinearLayout = findViewById(R.id.supportBtn)
+        btnFixMe.setOnClickListener {
+            startActivity(Intent(applicationContext, StartFixMeActivity::class.java))
+        }
         btnHome.setOnClickListener {
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }

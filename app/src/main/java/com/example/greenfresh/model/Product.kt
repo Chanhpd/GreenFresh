@@ -11,5 +11,5 @@ data class Product(
     var calories: Int,
     var sale: Int,
     var unit: String,
-    var numberInCart: Int = 0
+    var star: Double
 ) : Serializable

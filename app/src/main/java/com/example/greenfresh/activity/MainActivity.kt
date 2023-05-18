@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var arrBanner: ArrayList<String>
 
     lateinit var imgAvt : CircleImageView
-
+    lateinit var btn_search : ImageButton
     var uid : Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +71,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "No wifi", Toast.LENGTH_SHORT).show()
             finish()
         }
-
+        btn_search.setOnClickListener {
+            startActivity(Intent(this, ProductActivity::class.java))
+        }
     }
 
     private fun bottomNavagation() {
@@ -146,6 +148,7 @@ class MainActivity : AppCompatActivity() {
             var calories = 0
             var sale = 0
             var unit = ""
+            var star = 0.0
             if (response != null) {
 
                 for (i in 0 until response.length()) {
@@ -158,8 +161,9 @@ class MainActivity : AppCompatActivity() {
                     calories = jsonObject!!.getInt("calories")
                     sale = jsonObject!!.getInt("sale")
                     unit = jsonObject!!.getString("unit")
+                    star = jsonObject!!.getDouble("star")
 
-                    productList.add(Product(id, name, thumb,description,price, calories, sale, unit))
+                    productList.add(Product(id, name, thumb,description,price, calories, sale, unit,star))
                     adapterBestSeller.notifyDataSetChanged()
                 }
             }
@@ -260,6 +264,7 @@ class MainActivity : AppCompatActivity() {
         recyclerViewSeller = findViewById(R.id.view_seller)
         recyclerViewVoucher = findViewById(R.id.view_voucher)
         imgAvt = findViewById(R.id.img_avt)
+        btn_search = findViewById(R.id.btn_search)
     }
 
     private fun getDataUser() {

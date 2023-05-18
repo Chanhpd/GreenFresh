@@ -72,7 +72,7 @@ class DetailProductActivity : AppCompatActivity() {
             number++
 
             numberCart.text = number.toString()
-
+            total_price.text = "$"+(number*product.price).toString()
         }
         minus.setOnClickListener {
             number--
@@ -80,10 +80,15 @@ class DetailProductActivity : AppCompatActivity() {
                 number=1
             }
             numberCart.text = number.toString()
+            total_price.text = "$"+(number*product.price).toString()
         }
         btnAddCart.setOnClickListener {
             CartApi().addToCart(this, userId,product.id,number)
         }
+        total_price.text = "$"+(number*product.price).toString()
+
+        ratingStar.rating = (product.star-0.5).toFloat()
+        tvStar.text = product.star.toString()
     }
 
     private fun initView() {

@@ -68,6 +68,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -144,17 +145,6 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView23" />
 
                 <TextView
-                    android:id="@+id/tv_status_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Orders are being prepared"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/imageView23"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_order" />
-
-                <TextView
                     android:id="@+id/tv_delivery_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,11 +159,11 @@
                     android:id="@+id/tv_time_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="Order at: 12:50"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_status_order"
+                    app:layout_constraintStart_toStartOf="@+id/tv_delivery_order"
                     app:layout_constraintTop_toBottomOf="@+id/tv_status_order" />
 
                 <TextView
@@ -182,11 +172,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Receiver: "
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
-                    android:textColor="@color/black" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                 <TextView
                     android:id="@+id/textView43"
@@ -194,11 +184,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Phone: "
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView36"
-                    app:layout_constraintTop_toBottomOf="@+id/textView36"
-                    android:textColor="@color/black" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
                 <TextView
                     android:id="@+id/textView44"
@@ -206,11 +196,39 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Delivery Address: "
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView43"
-                    app:layout_constraintTop_toBottomOf="@+id/textView43"
-                    android:textColor="@color/black" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
+                <TextView
+                    android:id="@+id/tv_status_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_bg_yes"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="TextView"
+                    android:textColor="@color/color_bg"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/textView61"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_order" />
+
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_time_order"
+                    app:layout_constraintStart_toStartOf="@+id/tv_delivery_order"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_order" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
